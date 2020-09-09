@@ -68,9 +68,24 @@
 
         <div style="float:right;">
           <el-button type="primary" size="small" @click="getAssetList()">全部 {{huizong.allSum}}</el-button>
-          <el-button type="primary" size="small" style="background:#e6a23c;border-color:#e6a23c" @click="getAssetList(1)">警 {{huizong.waring}}</el-button>
-          <el-button type="primary"  style="background:#67c23a;border-color:#67c23a" size="small" @click="getAssetList(2)">待检查 {{huizong.allSum-huizong.exitCheck}}</el-button>
-          <el-button type="primary" size="small" style="background:#909399;border-color:#909399"  @click="getAssetList(3)">已检查 {{huizong.exitCheck}}</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            style="background:#e6a23c;border-color:#e6a23c"
+            @click="getAssetList(1)"
+          >警 {{huizong.waring}}</el-button>
+          <el-button
+            type="primary"
+            style="background:#67c23a;border-color:#67c23a"
+            size="small"
+            @click="getAssetList(2)"
+          >待检查 {{huizong.allSum-huizong.exitCheck}}</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            style="background:#909399;border-color:#909399"
+            @click="getAssetList(3)"
+          >已检查 {{huizong.exitCheck}}</el-button>
         </div>
       </div>
       <div class="table-div">
@@ -415,110 +430,112 @@
       :close-on-click-modal="false"
       custom-class="dialog-div"
     >
-      <el-form
-        :label-position="labelPosition"
-        ref="editFormRef"
-        label-width="80px"
-        :model="editForm"
-      >
-        <el-form-item label="资产名称">
-          <el-input v-model.trim="editForm.T0002_ASSET_NAME" size="small" maxlength="50"></el-input>
-        </el-form-item>
-        <el-form-item label="资产类别">
-          <el-select v-model="editForm.T0001_ID" style="width:100%" size="small">
-            <el-option
-              v-for="item in assetTypeList"
-              :key="item.T0001_ID"
-              :label="item.T0001_ASSETTYPE_NAME"
-              :value="item.T0001_ID"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="所属路段">
-          <el-select v-model="editForm.T0002_LOAD_NAME" style="width:33%" size="small">
-            <el-option
-              v-for="(item, index) in listNameList"
-              :key="index"
-              :label="item.M0010_LOAD_NAME"
-              :value="item.M0010_LOAD_NAME"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="起点桩号：">
-          <el-input v-model.trim="editForm.T0002_START_PILE" size="small" maxlength="20"></el-input>
-        </el-form-item>
-        <el-form-item label="终点桩号：">
-          <el-input v-model.trim="editForm.T0002_END_PILE" size="small" maxlength="20"></el-input>
-        </el-form-item>
-        <el-form-item label="数量：">
-          <el-input v-model.trim="editForm.T0002_ASSET_AMOUNT" size="small"></el-input>
-        </el-form-item>
-        <el-form-item label="归属年份：">
-          <el-date-picker
-            v-model="editForm.T0002_ASSET_DATE"
-            type="date"
-            placeholder="选择年"
-            style="width: 100%"
-            size="small"
-            value-format="yyyy-MM-dd"
-          ></el-date-picker>
-        </el-form-item>
-        <el-form-item label="归属公司：">
-          <el-input v-model="editForm.T0002_ASSET_COMPANY"></el-input>
-        </el-form-item>
-        <el-form-item label="所属养管公司：">
-          <el-input
-            v-model.trim="editForm.T0002_CURING_UNIT"
-            size="small"
-            maxlength="50"
-            readonly="readonly"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="责任人：">
-          <el-input v-model.trim="editForm.T0002_DUTY_PERSON" size="small" maxlength="20"></el-input>
-        </el-form-item>
-        <el-form-item label="联系电话：">
-          <el-input v-model.trim="editForm.T0002_TOUCH_TEL" size="small" maxlength="20"></el-input>
-        </el-form-item>
-        <el-form-item label="经度：">
-          <el-input v-model.trim="editForm.T0002_ASSET_PRECI" size="small"></el-input>
-        </el-form-item>
-        <el-form-item label="纬度：">
-          <el-input v-model.trim="editForm.T0002_ASSET_LATI" size="small"></el-input>
-        </el-form-item>
-        <el-form-item label="图片上传：">
-          <el-upload
-            class="avatar-uploader"
-            :headers="header"
-            accept="image/*"
-            name="image"
-            :on-change="imgChange"
-            action
-            :show-file-list="false"
-            :auto-upload="false"
-            style="display: inline"
-          >
-            <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
-          <ul class="ul-img">
-            <li class="avatar-uploader" v-for="(item, index) in imageList" :key="index">
-              <img :src="item.FILE_URL" class="el-upload avatar" />
-              <span class="actions-item">
-                <span>
-                  <i class="el-icon-zoom-in" @click.stop="clickImgFun(item)"></i>
+      <div style="height:600px">
+        <el-form
+          :label-position="labelPosition"
+          ref="editFormRef"
+          label-width="80px"
+          :model="editForm"
+        >
+          <el-form-item label="资产名称:">
+            <el-input v-model.trim="editForm.T0002_ASSET_NAME" size="small" maxlength="50"></el-input>
+          </el-form-item>
+          <el-form-item label="资产类别:">
+            <el-select v-model="editForm.T0001_ID" style="width:100%" size="small">
+              <el-option
+                v-for="item in assetTypeList"
+                :key="item.T0001_ID"
+                :label="item.T0001_ASSETTYPE_NAME"
+                :value="item.T0001_ID"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="所属路段:">
+            <el-select v-model="editForm.T0002_LOAD_NAME" style="width:100%" size="small">
+              <el-option
+                v-for="(item, index) in listNameList"
+                :key="index"
+                :label="item.M0010_LOAD_NAME"
+                :value="item.M0010_LOAD_NAME"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="起点桩号:">
+            <el-input v-model.trim="editForm.T0002_START_PILE" size="small" maxlength="20"></el-input>
+          </el-form-item>
+          <el-form-item label="终点桩号:">
+            <el-input v-model.trim="editForm.T0002_END_PILE" size="small" maxlength="20"></el-input>
+          </el-form-item>
+          <el-form-item label="数量:">
+            <el-input v-model.trim="editForm.T0002_ASSET_AMOUNT" size="small"></el-input>
+          </el-form-item>
+          <el-form-item label="归属年份:">
+            <el-date-picker
+              v-model="editForm.T0002_ASSET_DATE"
+              type="date"
+              placeholder="选择年"
+              style="width:100%"
+              size="small"
+              value-format="yyyy-MM-dd"
+            ></el-date-picker>
+          </el-form-item>
+          <el-form-item label="归属公司:">
+            <el-input v-model="editForm.T0002_ASSET_COMPANY"></el-input>
+          </el-form-item>
+          <el-form-item label="所属养管公司:">
+            <el-input
+              v-model.trim="editForm.T0002_CURING_UNIT"
+              size="small"
+              maxlength="50"
+              readonly="readonly"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="责任人:">
+            <el-input v-model.trim="editForm.T0002_DUTY_PERSON" size="small" maxlength="20"></el-input>
+          </el-form-item>
+          <el-form-item label="联系电话:">
+            <el-input v-model.trim="editForm.T0002_TOUCH_TEL" size="small" maxlength="20"></el-input>
+          </el-form-item>
+          <el-form-item label="经度:">
+            <el-input v-model.trim="editForm.T0002_ASSET_PRECI" size="small"></el-input>
+          </el-form-item>
+          <el-form-item label="纬度:">
+            <el-input v-model.trim="editForm.T0002_ASSET_LATI" size="small"></el-input>
+          </el-form-item>
+          <el-form-item label="图片上传:" style="width: 100%;">
+            <el-upload
+              class="avatar-uploader"
+              :headers="header"
+              accept="image/*"
+              name="image"
+              :on-change="imgChange"
+              action
+              :show-file-list="false"
+              :auto-upload="false"
+              style="display: inline"
+            >
+              <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+            <ul class="ul-img">
+              <li class="avatar-uploader" v-for="(item, index) in imageList" :key="index">
+                <img :src="item.FILE_URL" class="el-upload avatar" />
+                <span class="actions-item">
+                  <span>
+                    <i class="el-icon-zoom-in" @click.stop="clickImgFun(item)"></i>
+                  </span>
+                  <span>
+                    <i class="el-icon-delete" @click.stop="clickDeleteFun(item)"></i>
+                  </span>
                 </span>
-                <span>
-                  <i class="el-icon-delete" @click.stop="clickDeleteFun(item)"></i>
-                </span>
-              </span>
-            </li>
-          </ul>
-        </el-form-item>
-        <el-form-item label="备注">
-          <el-input type="textarea" v-model="editForm.T0002_ASSET_REAMRK" maxlength="500"></el-input>
-        </el-form-item>
-      </el-form>
+              </li>
+            </ul>
+          </el-form-item>
+          <el-form-item label="备注:" style="width: 90%;">
+            <el-input type="textarea" v-model="editForm.T0002_ASSET_REAMRK" maxlength="500"></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="editSaveFun">确 认</el-button>
         <el-button @click="editShow = false">取 消</el-button>
@@ -531,105 +548,107 @@
       :close-on-click-modal="false"
       custom-class="dialog-div"
     >
-      <el-form :label-position="labelPosition" label-width="80px" :model="infoForm">
-        <el-form-item label="资产名称">
-          <el-input v-model.trim="infoForm.T0002_ASSET_NAME" size="small" maxlength="50"></el-input>
-        </el-form-item>
-        <el-form-item label="资产类别">
-          <el-select v-model="infoForm.T0001_ID" style="width:100%" size="small">
-            <el-option
-              v-for="item in assetTypeList"
-              :key="item.T0001_ID"
-              :label="item.T0001_ASSETTYPE_NAME"
-              :value="item.T0001_ID"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="所属路段">
-          <el-select v-model="infoForm.T0002_LOAD_NAME" style="width:33%" size="small">
-            <el-option
-              v-for="(item, index) in listNameList"
-              :key="index"
-              :label="item.M0010_LOAD_NAME"
-              :value="item.M0010_LOAD_NAME"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="起点桩号：">
-          <el-input v-model.trim="infoForm.T0002_START_PILE" size="small" maxlength="20"></el-input>
-        </el-form-item>
-        <el-form-item label="终点桩号：">
-          <el-input v-model.trim="infoForm.T0002_END_PILE" size="small" maxlength="20"></el-input>
-        </el-form-item>
-        <el-form-item label="数量：">
-          <el-input v-model.trim="infoForm.T0002_ASSET_AMOUNT" size="small"></el-input>
-        </el-form-item>
-        <el-form-item label="归属年份：">
-          <el-date-picker
-            v-model="infoForm.T0002_ASSET_DATE"
-            type="date"
-            placeholder="选择年"
-            style="width: 100%"
-            size="small"
-            value-format="yyyy-MM-dd"
-          ></el-date-picker>
-        </el-form-item>
-        <el-form-item label="归属公司：">
-          <el-input v-model="infoForm.T0002_ASSET_COMPANY"></el-input>
-        </el-form-item>
-        <el-form-item label="所属养管公司：">
-          <el-input
-            v-model.trim="infoForm.T0002_CURING_UNIT"
-            size="small"
-            maxlength="50"
-            readonly="readonly"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="责任人：">
-          <el-input v-model.trim="infoForm.T0002_DUTY_PERSON" size="small" maxlength="20"></el-input>
-        </el-form-item>
-        <el-form-item label="联系电话：">
-          <el-input v-model.trim="infoForm.T0002_TOUCH_TEL" size="small" maxlength="20"></el-input>
-        </el-form-item>
-        <el-form-item label="经度：">
-          <el-input v-model.trim="infoForm.T0002_ASSET_PRECI" size="small"></el-input>
-        </el-form-item>
-        <el-form-item label="纬度：">
-          <el-input v-model.trim="infoForm.T0002_ASSET_LATI" size="small"></el-input>
-        </el-form-item>
-        <el-form-item label="图片上传：">
-          <el-upload
-            class="avatar-uploader"
-            :headers="header"
-            accept="image/*"
-            name="image"
-            :on-change="imgChange"
-            action
-            :show-file-list="false"
-            :auto-upload="false"
-            style="display: inline"
-          >
-            <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
-          <ul class="ul-img">
-            <li class="avatar-uploader" v-for="(item, index) in imageList" :key="index">
-              <img :src="item.FILE_URL" class="el-upload avatar" />
-              <span class="actions-item">
-                <span>
-                  <i class="el-icon-zoom-in" @click.stop="clickImgFun(item)"></i>
+      <div style="height:600px">
+        <el-form :label-position="labelPosition" label-width="80px" :model="infoForm">
+          <el-form-item label="资产名称:">
+            <el-input v-model.trim="infoForm.T0002_ASSET_NAME" size="small" maxlength="50"></el-input>
+          </el-form-item>
+          <el-form-item label="资产类别:">
+            <el-select v-model="infoForm.T0001_ID" style="width:100%" size="small">
+              <el-option
+                v-for="item in assetTypeList"
+                :key="item.T0001_ID"
+                :label="item.T0001_ASSETTYPE_NAME"
+                :value="item.T0001_ID"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="所属路段:">
+            <el-select v-model="infoForm.T0002_LOAD_NAME" style="width:100%" size="small">
+              <el-option
+                v-for="(item, index) in listNameList"
+                :key="index"
+                :label="item.M0010_LOAD_NAME"
+                :value="item.M0010_LOAD_NAME"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="起点桩号:">
+            <el-input v-model.trim="infoForm.T0002_START_PILE" size="small" maxlength="20"></el-input>
+          </el-form-item>
+          <el-form-item label="终点桩号:">
+            <el-input v-model.trim="infoForm.T0002_END_PILE" size="small" maxlength="20"></el-input>
+          </el-form-item>
+          <el-form-item label="数量:">
+            <el-input v-model.trim="infoForm.T0002_ASSET_AMOUNT" size="small"></el-input>
+          </el-form-item>
+          <el-form-item label="归属年份:">
+            <el-date-picker
+              v-model="infoForm.T0002_ASSET_DATE"
+              type="date"
+              placeholder="选择年"
+              style="width: 100%"
+              size="small"
+              value-format="yyyy-MM-dd"
+            ></el-date-picker>
+          </el-form-item>
+          <el-form-item label="归属公司:">
+            <el-input v-model="infoForm.T0002_ASSET_COMPANY"></el-input>
+          </el-form-item>
+          <el-form-item label="所属养管公司:">
+            <el-input
+              v-model.trim="infoForm.T0002_CURING_UNIT"
+              size="small"
+              maxlength="50"
+              readonly="readonly"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="责任人:">
+            <el-input v-model.trim="infoForm.T0002_DUTY_PERSON" size="small" maxlength="20"></el-input>
+          </el-form-item>
+          <el-form-item label="联系电话:">
+            <el-input v-model.trim="infoForm.T0002_TOUCH_TEL" size="small" maxlength="20"></el-input>
+          </el-form-item>
+          <el-form-item label="经度:">
+            <el-input v-model.trim="infoForm.T0002_ASSET_PRECI" size="small"></el-input>
+          </el-form-item>
+          <el-form-item label="纬度:">
+            <el-input v-model.trim="infoForm.T0002_ASSET_LATI" size="small"></el-input>
+          </el-form-item>
+          <el-form-item label="图片上传:" style="width:100%">
+            <el-upload
+              class="avatar-uploader"
+              :headers="header"
+              accept="image/*"
+              name="image"
+              :on-change="imgChange"
+              action
+              :show-file-list="false"
+              :auto-upload="false"
+              style="display: inline"
+            >
+              <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+            <ul class="ul-img">
+              <li class="avatar-uploader" v-for="(item, index) in imageList" :key="index">
+                <img :src="item.FILE_URL" class="el-upload avatar" />
+                <span class="actions-item">
+                  <span>
+                    <i class="el-icon-zoom-in" @click.stop="clickImgFun(item)"></i>
+                  </span>
+                  <span>
+                    <i class="el-icon-delete" @click.stop="clickDeleteFun(item)"></i>
+                  </span>
                 </span>
-                <span>
-                  <i class="el-icon-delete" @click.stop="clickDeleteFun(item)"></i>
-                </span>
-              </span>
-            </li>
-          </ul>
-        </el-form-item>
-        <el-form-item label="备注">
-          <el-input type="textarea" v-model="infoForm.T0002_ASSET_REAMRK" maxlength="500"></el-input>
-        </el-form-item>
-      </el-form>
+              </li>
+            </ul>
+          </el-form-item>
+          <el-form-item label="备注:" style="width:86%" >
+            <el-input type="textarea" v-model="infoForm.T0002_ASSET_REAMRK" maxlength="500"></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="infoShow=false">确 认</el-button>
         <el-button @click="infoShow=false">取 消</el-button>
@@ -1068,7 +1087,7 @@ export default {
     },
     // 资产信息list
     getAssetList(type) {
-      this.searchMap.STATE=type
+      this.searchMap.STATE = type;
       this.searchMap.M0018_ID = sessionStorage.getItem("id");
       // this.searchMap.M0018_ID = '426497497934856110'
       // this.searchMap.M0018_ID = sessionStorage.getItem('426497497934856110')
@@ -1323,8 +1342,12 @@ export default {
   // }
   .dialog-div {
     width: 1000px;
+    margin-top: 50px !important;
     .el-form-item {
       margin-bottom: 0;
+      width: 40%;
+      float: left;
+      margin-left: 5%;
     }
   }
   .ul-img {

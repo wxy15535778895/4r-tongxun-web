@@ -1,84 +1,86 @@
 
 <template>
   <div class="assets-wrap">
-    <tr class="title-p">
-      <span style="display:inline-block;margin-bottom:20px;padding-right:675px;">>> 检查单详情</span>
-      <td>
-        <el-button
-          type="primary"
-          size="small"
-          :style="{'background':time[0].includes('2020-12')? open==('2020-12')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
-          round
-        >十二月</el-button>
-        <el-button
-          type="primary"
-          size="small"
-          :style="{'background':time[0].includes('2020-11')? open==('2020-11')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
-          round
-        >十一月</el-button>
-        <el-button
-          type="primary"
-          size="small"
-          :style="{'background':time[0].includes('2020-10')? open==('2020-10')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
-          round
-        >十月</el-button>
-        <el-button
-          type="primary"
-          size="small"
-          :style="{'background':time[0].includes('2020-09')? open==('2020-09')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
-          round
-        >九月</el-button>
-        <el-button
-          type="primary"
-          size="small"
-          :style="{'background':time[0].includes('2020-08')? open==('2020-08')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
-          round
-        >八月</el-button>
-        <el-button
-          type="primary"
-          size="small"
-          :style="{'background':time[0].includes('2020-07')? open==('2020-07')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
-          round
-        >七月</el-button>
-        <el-button
-          type="primary"
-          size="small"
-          :style="{'background':time[0].includes('2020-06')? open==('2020-06')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
-          round
-        >六月</el-button>
-        <el-button
-          type="primary"
-          size="small"
-          :style="{'background':time[0].includes('2020-05')? open==('2020-05')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
-          round
-        >五月</el-button>
-        <el-button
-          type="primary"
-          size="small"
-          :style="{'background':time[0].includes('2020-04')? open==('2020-04')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
-          round
-        >四月</el-button>
-        <el-button
-          type="primary"
-          size="small"
-          :style="{'background':time[0].includes('2020-03')? open==('2020-03')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
-          round
-        >三月</el-button>
-        <el-button
-          type="primary"
-          size="small"
-          :style="{'background':time[0].includes('2020-02')? open==('2020-02')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
-          round
-        >二月</el-button>
-        <el-button
-          type="primary"
-          size="small"
-          :style="{'background':time[0].includes('2020-01')? open==('2020-01')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
-          round
-        >一月</el-button>
-      </td>
-      <!-- <el-button type="primary">打印</el-button> -->
-    </tr>
+    <div style="display:flex">
+      <span>>>检查记录表</span>
+      <tr class="title-p" style="margin-left:auto">
+        <td v-if="id2!=0">
+          <el-button
+            type="primary"
+            size="small"
+            :style="{'background':time[0].includes('2020-12')? open==('2020-12')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
+            round
+          >十二月</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            :style="{'background':time[0].includes('2020-11')? open==('2020-11')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
+            round
+          >十一月</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            :style="{'background':time[0].includes('2020-10')? open==('2020-10')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
+            round
+          >十月</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            :style="{'background':time[0].includes('2020-09')? open==('2020-09')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
+            round
+          >九月</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            :style="{'background':time[0].includes('2020-08')? open==('2020-08')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
+            round
+          >八月</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            :style="{'background':time[0].includes('2020-07')? open==('2020-07')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
+            round
+          >七月</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            :style="{'background':time[0].includes('2020-06')? open==('2020-06')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
+            round
+          >六月</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            :style="{'background':time[0].includes('2020-05')? open==('2020-05')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
+            round
+          >五月</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            :style="{'background':time[0].includes('2020-04')? open==('2020-04')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
+            round
+          >四月</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            :style="{'background':time[0].includes('2020-03')? open==('2020-03')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
+            round
+          >三月</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            :style="{'background':time[0].includes('2020-02')? open==('2020-02')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
+            round
+          >二月</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            :style="{'background':time[0].includes('2020-01')? open==('2020-01')?'#FF6600':'#1FB5AC':'#CCCCCC'}"
+            round
+          >一月</el-button>
+        </td>
+        <!-- <el-button type="primary">打印</el-button> -->
+      </tr>
+    </div>
     <!-- 内容展示 -->
     <!-- <el-form ref="addFormRef" :visible.sync="dialogFormVisible" v-if="addForm1.M0019_PART"> -->
 
@@ -129,8 +131,8 @@
           <el-input v-model="addForm.T0002_CURING_UNIT" disabled placeholder></el-input>
         </el-form-item>
       </el-form>
-      <el-table :data="addForm1" border style="width: 100%">
-        <el-table-column prop="index" type="index" label="序号"></el-table-column>
+      <el-table :data="addForm1" border style="width: 100%;overflow:scroll;">
+        <el-table-column prop="index" type="index" label="序号" style="100%"></el-table-column>
         <el-table-column prop="M0019_PART" label="部位"></el-table-column>
         <el-table-column prop="M0019_PART_NAME" label="部件名称"></el-table-column>
         <el-table-column prop="M0019_PART_WEIGHT" label="部件权重"></el-table-column>
@@ -187,7 +189,7 @@
             <el-input :disabled="id2!=0? true:false" v-model="scope.row.M0021_KEEP_IDEA" />
           </template>
         </el-table-column>
-        <el-table-column prop="address" label="附件" width="200">
+        <el-table-column prop="address" label="附件">
           <template slot-scope="scope">
             <el-upload
               class="upload-demo"
@@ -222,7 +224,12 @@
           ></el-input>
         </el-form-item>
         <el-form-item label="记录时间 :">
-          <el-date-picker  :disabled="id2!=0? true:false" v-model="addForm2.M0020_CHECK_DATE" type="datetime" placeholder="选择日期时间"></el-date-picker>
+          <el-date-picker
+            :disabled="id2!=0? true:false"
+            v-model="addForm2.M0020_CHECK_DATE"
+            type="datetime"
+            placeholder="选择日期时间"
+          ></el-date-picker>
         </el-form-item>
       </el-form>
 
@@ -667,9 +674,55 @@ export default {
   margin-right: 5% !important;
 }
 .bcorlor .el-input__inner {
-  border: 1px solid #1FB5AC !important;
+  border: 1px solid #1fb5ac !important;
 }
 .el-input.is-disabled .el-input__inner {
   border-color: #e4e7ed !important;
+}
+body .el-table th.gutter {
+  display: table-cell !important;
+}
+.el-table__header {
+  width: 100% !important;
+}
+.el-table__body {
+  width: 100% !important;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* 正常情况下滑块的样式 */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 2px;
+  -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* 鼠标悬浮在该类指向的控件上时滑块的样式 */
+:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* 鼠标悬浮在滑块上时滑块的样式 */
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* 正常时候的主干部分 */
+::-webkit-scrollbar-track {
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+  background-color: inherit;
+}
+
+/* 鼠标悬浮在滚动条上的主干部分 */
+::-webkit-scrollbar-track:hover {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
+  background-color: inherit;
 }
 </style>

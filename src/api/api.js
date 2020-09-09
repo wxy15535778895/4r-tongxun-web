@@ -90,8 +90,8 @@ function apiAxios(method, url, params, tip, success) {
             url: url,
             data: method === 'POST' || method === 'PUT' ? params : null,
             params: method === 'GET' || method === 'DELETE' ? params : null,
-            baseURL: 'api',
-            // baseURL: 'http://61.185.210.205:8000',
+            // baseURL: 'api',
+            baseURL: 'http://61.185.210.205:8000',
             withCredentials: true,
         })
         .then(function(res) {
