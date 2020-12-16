@@ -73,25 +73,29 @@
             size="small"
             style="background:#e6a23c;border-color:#e6a23c"
             @click="getAssetList(1)"
-          >警 {{huizong.waring}}</el-button>
+          >警 {{huizong.waring}}
+          </el-button>
           <el-button
             type="primary"
             style="background:#67c23a;border-color:#67c23a"
             size="small"
             @click="getAssetList(2)"
-          >待检查 {{huizong.allSum-huizong.exitCheck}}</el-button>
+          >待检查 {{huizong.allSum-huizong.exitCheck}}
+          </el-button>
           <el-button
             type="primary"
             size="small"
             style="background:#909399;border-color:#909399"
             @click="getAssetList(3)"
-          >已检查 {{huizong.exitCheck}}</el-button>
+          >已检查 {{huizong.exitCheck}}
+          </el-button>
         </div>
       </div>
       <div class="table-div">
         <el-table
           v-loading.body="loading"
           :data="tableData"
+          :cell-style="cellStyle"
           border
           style="width: 100%"
           highlight-current-row
@@ -151,19 +155,22 @@
                 size="mini"
                 @click="handleInfo(scope.row)"
                 :disabled="isChaxun"
-              >查看</el-button>
+              >查看
+              </el-button>
               <el-button
                 type="primary"
                 size="mini"
                 :disabled="isEdit"
                 @click="handleEdit(scope.row)"
-              >编辑</el-button>
+              >编辑
+              </el-button>
               <el-button
                 type="danger"
                 size="mini"
                 :disabled="isDelete"
                 @click="handleDelete(scope.row)"
-              >删除</el-button>
+              >删除
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -193,7 +200,8 @@
               <p style="line-height:30px">桥梁技术状况等级分为五类，分别为一类、二类、三类、四类、五类。</p>
               <p
                 style="line-height:30px"
-              >（1）一类桥梁为全新状态，功能完善。（2）二类桥梁为有轻微缺损，对桥梁使用功能无影响。（3）三类桥梁为有中等缺损，尚能维持正常使用功能。（4）四类桥梁为主要构件有大的缺损，严重影响桥梁使用功能，或影响承载能力，不能保证正常使用。（5）五类桥梁为主要构件存在严重缺损，不能正常使用，危及桥梁安全，桥梁处于危险状态。</p>
+              >
+                （1）一类桥梁为全新状态，功能完善。（2）二类桥梁为有轻微缺损，对桥梁使用功能无影响。（3）三类桥梁为有中等缺损，尚能维持正常使用功能。（4）四类桥梁为主要构件有大的缺损，严重影响桥梁使用功能，或影响承载能力，不能保证正常使用。（5）五类桥梁为主要构件存在严重缺损，不能正常使用，危及桥梁安全，桥梁处于危险状态。</p>
             </td>
           </tr>
           <tr>
@@ -392,12 +400,12 @@
                 :auto-upload="false"
                 style="display: inline"
               >
-                <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+                <img v-if="imageUrl" :src="imageUrl" class="avatar"/>
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               </el-upload>
               <ul class="ul-img">
                 <li class="avatar-uploader" v-for="(item, index) in imageList" :key="index">
-                  <img :src="item.FILE_URL" class="el-upload avatar" />
+                  <img :src="item.FILE_URL" class="el-upload avatar"/>
                   <span class="actions-item">
                     <span>
                       <i class="el-icon-zoom-in" @click.stop="clickImgFun(item)"></i>
@@ -431,96 +439,128 @@
       custom-class="dialog-div"
     >
       <div style="height:600px">
-        <el-form
-          :label-position="labelPosition"
-          ref="editFormRef"
-          label-width="80px"
-          :model="editForm"
-        >
-          <el-form-item label="资产名称:">
-            <el-input v-model.trim="editForm.T0002_ASSET_NAME" size="small" maxlength="50"></el-input>
-          </el-form-item>
-          <el-form-item label="资产类别:">
-            <el-select v-model="editForm.T0001_ID" style="width:100%" size="small">
-              <el-option
-                v-for="item in assetTypeList"
-                :key="item.T0001_ID"
-                :label="item.T0001_ASSETTYPE_NAME"
-                :value="item.T0001_ID"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="所属路段:">
-            <el-select v-model="editForm.T0002_LOAD_NAME" style="width:100%" size="small">
-              <el-option
-                v-for="(item, index) in listNameList"
-                :key="index"
-                :label="item.M0010_LOAD_NAME"
-                :value="item.M0010_LOAD_NAME"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="起点桩号:">
-            <el-input v-model.trim="editForm.T0002_START_PILE" size="small" maxlength="20"></el-input>
-          </el-form-item>
-          <el-form-item label="终点桩号:">
-            <el-input v-model.trim="editForm.T0002_END_PILE" size="small" maxlength="20"></el-input>
-          </el-form-item>
-          <el-form-item label="数量:">
-            <el-input v-model.trim="editForm.T0002_ASSET_AMOUNT" size="small"></el-input>
-          </el-form-item>
-          <el-form-item label="归属年份:">
-            <el-date-picker
-              v-model="editForm.T0002_ASSET_DATE"
-              type="date"
-              placeholder="选择年"
-              style="width:100%"
-              size="small"
-              value-format="yyyy-MM-dd"
-            ></el-date-picker>
-          </el-form-item>
-          <el-form-item label="归属公司:">
-            <el-input v-model="editForm.T0002_ASSET_COMPANY"></el-input>
-          </el-form-item>
-          <el-form-item label="所属养管公司:">
-            <el-input
-              v-model.trim="editForm.T0002_CURING_UNIT"
-              size="small"
-              maxlength="50"
-              readonly="readonly"
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="责任人:">
-            <el-input v-model.trim="editForm.T0002_DUTY_PERSON" size="small" maxlength="20"></el-input>
-          </el-form-item>
-          <el-form-item label="联系电话:">
-            <el-input v-model.trim="editForm.T0002_TOUCH_TEL" size="small" maxlength="20"></el-input>
-          </el-form-item>
-          <el-form-item label="经度:">
-            <el-input v-model.trim="editForm.T0002_ASSET_PRECI" size="small"></el-input>
-          </el-form-item>
-          <el-form-item label="纬度:">
-            <el-input v-model.trim="editForm.T0002_ASSET_LATI" size="small"></el-input>
-          </el-form-item>
-          <el-form-item label="图片上传:" style="width: 100%;">
-            <el-upload
-              class="avatar-uploader"
-              :headers="header"
-              accept="image/*"
-              name="image"
-              :on-change="imgChange"
-              action
-              :show-file-list="false"
-              :auto-upload="false"
-              style="display: inline"
-            >
-              <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-            <ul class="ul-img">
-              <li class="avatar-uploader" v-for="(item, index) in imageList" :key="index">
-                <img :src="item.FILE_URL" class="el-upload avatar" />
-                <span class="actions-item">
+        <el-form :label-position="labelPosition" label-width="100px" :model="editForm">
+          <table class="add-table">
+            <tr>
+              <td class="bg-td">资产名称：</td>
+              <td>
+                <!-- <el-form-item> -->
+                <!-- <el-form-item prop="M0016_ID"> -->
+                <el-input v-model.trim="editForm.T0002_ASSET_NAME" size="small" maxlength="50"></el-input>
+                <!-- </el-form-item> -->
+              </td>
+              <td class="bg-td">资产类别：</td>
+              <td>
+                <el-select v-model="editForm.T0001_ID" style="width:100%" size="small">
+                  <el-option
+                    v-for="item in assetTypeList"
+                    :key="item.T0001_ID"
+                    :label="item.T0001_ASSETTYPE_NAME"
+                    :value="item.T0001_ID"
+                  ></el-option>
+                </el-select>
+              </td>
+            </tr>
+            <tr>
+              <td class="bg-td">所属路段：</td>
+              <td>
+                <el-select v-model="editForm.T0002_LOAD_NAME" style="width:100%" size="small">
+                  <el-option
+                    v-for="(item, index) in listNameList"
+                    :key="index"
+                    :label="item.M0010_LOAD_NAME"
+                    :value="item.M0010_LOAD_NAME"
+                  ></el-option>
+                </el-select>
+              </td>
+              <td class="bg-td">起点桩号：</td>
+              <td>
+                <el-input v-model.trim="editForm.T0002_START_PILE" size="small" maxlength="20"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="bg-td">终点桩号：</td>
+              <td>
+                <el-input v-model.trim="editForm.T0002_END_PILE" size="small" maxlength="20"></el-input>
+              </td>
+              <td class="bg-td">数量：</td>
+              <td>
+                <el-input v-model.trim="editForm.T0002_ASSET_AMOUNT" size="small"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="bg-td">归属年份：</td>
+              <td>
+                <el-date-picker
+                  v-model="editForm.T0002_ASSET_DATE"
+                  type="date"
+                  placeholder="选择年"
+                  style="width: 100%"
+                  size="small"
+                  value-format="yyyy-MM-dd"
+                ></el-date-picker>
+              </td>
+              <td class="bg-td">归属公司：</td>
+              <td>
+                <el-input v-model="editForm.T0002_ASSET_COMPANY"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="bg-td">所属养管公司：</td>
+              <td>
+                <el-input
+                  v-model.trim="editForm.T0002_CURING_UNIT"
+                  size="small"
+                  maxlength="50"
+                  readonly="readonly"
+                ></el-input>
+              </td>
+              <td class="bg-td">责任人：</td>
+              <td>
+                <el-input v-model.trim="editForm.T0002_DUTY_PERSON" size="small" maxlength="20"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="bg-td">联系电话：</td>
+              <td>
+                <el-input v-model.trim="editForm.T0002_TOUCH_TEL" size="small" maxlength="20"></el-input>
+              </td>
+              <td class="bg-td">经度：</td>
+              <td>
+                <el-input v-model.trim="editForm.T0002_ASSET_PRECI" size="small"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="bg-td">纬度：</td>
+              <td>
+                <el-input v-model.trim="editForm.T0002_ASSET_LATI" size="small"></el-input>
+              </td>
+              <td class="bg-td">备注：</td>
+              <td>
+                <el-input type="textarea" v-model="editForm.T0002_ASSET_REAMRK" maxlength="500"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="bg-td">图片上传：</td>
+              <td colspan="3">
+                <el-upload
+                  class="avatar-uploader"
+                  :headers="header"
+                  accept="image/*"
+                  name="image"
+                  :on-change="imgChange"
+                  action
+                  :show-file-list="false"
+                  :auto-upload="false"
+                  style="display: inline"
+                >
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar"/>
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+                <ul class="ul-img">
+                  <li class="avatar-uploader" v-for="(item, index) in imageList" :key="index">
+                    <img :src="item.FILE_URL" class="el-upload avatar"/>
+                    <span class="actions-item">
                   <span>
                     <i class="el-icon-zoom-in" @click.stop="clickImgFun(item)"></i>
                   </span>
@@ -528,12 +568,11 @@
                     <i class="el-icon-delete" @click.stop="clickDeleteFun(item)"></i>
                   </span>
                 </span>
-              </li>
-            </ul>
-          </el-form-item>
-          <el-form-item label="备注:" style="width: 90%;">
-            <el-input type="textarea" v-model="editForm.T0002_ASSET_REAMRK" maxlength="500"></el-input>
-          </el-form-item>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </table>
         </el-form>
       </div>
       <div slot="footer" class="dialog-footer">
@@ -549,91 +588,128 @@
       custom-class="dialog-div"
     >
       <div style="height:600px">
-        <el-form :label-position="labelPosition" label-width="80px" :model="infoForm">
-          <el-form-item label="资产名称:">
-            <el-input v-model.trim="infoForm.T0002_ASSET_NAME" size="small" maxlength="50"></el-input>
-          </el-form-item>
-          <el-form-item label="资产类别:">
-            <el-select v-model="infoForm.T0001_ID" style="width:100%" size="small">
-              <el-option
-                v-for="item in assetTypeList"
-                :key="item.T0001_ID"
-                :label="item.T0001_ASSETTYPE_NAME"
-                :value="item.T0001_ID"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="所属路段:">
-            <el-select v-model="infoForm.T0002_LOAD_NAME" style="width:100%" size="small">
-              <el-option
-                v-for="(item, index) in listNameList"
-                :key="index"
-                :label="item.M0010_LOAD_NAME"
-                :value="item.M0010_LOAD_NAME"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="起点桩号:">
-            <el-input v-model.trim="infoForm.T0002_START_PILE" size="small" maxlength="20"></el-input>
-          </el-form-item>
-          <el-form-item label="终点桩号:">
-            <el-input v-model.trim="infoForm.T0002_END_PILE" size="small" maxlength="20"></el-input>
-          </el-form-item>
-          <el-form-item label="数量:">
-            <el-input v-model.trim="infoForm.T0002_ASSET_AMOUNT" size="small"></el-input>
-          </el-form-item>
-          <el-form-item label="归属年份:">
-            <el-date-picker
-              v-model="infoForm.T0002_ASSET_DATE"
-              type="date"
-              placeholder="选择年"
-              style="width: 100%"
-              size="small"
-              value-format="yyyy-MM-dd"
-            ></el-date-picker>
-          </el-form-item>
-          <el-form-item label="归属公司:">
-            <el-input v-model="infoForm.T0002_ASSET_COMPANY"></el-input>
-          </el-form-item>
-          <el-form-item label="所属养管公司:">
-            <el-input
-              v-model.trim="infoForm.T0002_CURING_UNIT"
-              size="small"
-              maxlength="50"
-              readonly="readonly"
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="责任人:">
-            <el-input v-model.trim="infoForm.T0002_DUTY_PERSON" size="small" maxlength="20"></el-input>
-          </el-form-item>
-          <el-form-item label="联系电话:">
-            <el-input v-model.trim="infoForm.T0002_TOUCH_TEL" size="small" maxlength="20"></el-input>
-          </el-form-item>
-          <el-form-item label="经度:">
-            <el-input v-model.trim="infoForm.T0002_ASSET_PRECI" size="small"></el-input>
-          </el-form-item>
-          <el-form-item label="纬度:">
-            <el-input v-model.trim="infoForm.T0002_ASSET_LATI" size="small"></el-input>
-          </el-form-item>
-          <el-form-item label="图片上传:" style="width:100%">
-            <el-upload
-              class="avatar-uploader"
-              :headers="header"
-              accept="image/*"
-              name="image"
-              :on-change="imgChange"
-              action
-              :show-file-list="false"
-              :auto-upload="false"
-              style="display: inline"
-            >
-              <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-            <ul class="ul-img">
-              <li class="avatar-uploader" v-for="(item, index) in imageList" :key="index">
-                <img :src="item.FILE_URL" class="el-upload avatar" />
-                <span class="actions-item">
+        <el-form :label-position="labelPosition" label-width="100px" :model="infoForm">
+          <table class="add-table">
+            <tr>
+              <td class="bg-td">资产名称：</td>
+              <td>
+                <!-- <el-form-item> -->
+                <!-- <el-form-item prop="M0016_ID"> -->
+                <el-input v-model.trim="infoForm.T0002_ASSET_NAME" size="small" maxlength="50"></el-input>
+                <!-- </el-form-item> -->
+              </td>
+              <td class="bg-td">资产类别：</td>
+              <td>
+                <el-select v-model="infoForm.T0001_ID" style="width:100%" size="small">
+                  <el-option
+                    v-for="item in assetTypeList"
+                    :key="item.T0001_ID"
+                    :label="item.T0001_ASSETTYPE_NAME"
+                    :value="item.T0001_ID"
+                  ></el-option>
+                </el-select>
+              </td>
+            </tr>
+            <tr>
+              <td class="bg-td">所属路段：</td>
+              <td>
+                <el-select v-model="infoForm.T0002_LOAD_NAME" style="width:100%" size="small">
+                  <el-option
+                    v-for="(item, index) in listNameList"
+                    :key="index"
+                    :label="item.M0010_LOAD_NAME"
+                    :value="item.M0010_LOAD_NAME"
+                  ></el-option>
+                </el-select>
+              </td>
+              <td class="bg-td">起点桩号：</td>
+              <td>
+                <el-input v-model.trim="infoForm.T0002_START_PILE" size="small" maxlength="20"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="bg-td">终点桩号：</td>
+              <td>
+                <el-input v-model.trim="infoForm.T0002_END_PILE" size="small" maxlength="20"></el-input>
+              </td>
+              <td class="bg-td">数量：</td>
+              <td>
+                <el-input v-model.trim="infoForm.T0002_ASSET_AMOUNT" size="small"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="bg-td">归属年份：</td>
+              <td>
+                <el-date-picker
+                  v-model="infoForm.T0002_ASSET_DATE"
+                  type="date"
+                  placeholder="选择年"
+                  style="width: 100%"
+                  size="small"
+                  value-format="yyyy-MM-dd"
+                ></el-date-picker>
+              </td>
+              <td class="bg-td">归属公司：</td>
+              <td>
+                <el-input v-model="infoForm.T0002_ASSET_COMPANY"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="bg-td">所属养管公司：</td>
+              <td>
+                <el-input
+                  v-model.trim="infoForm.T0002_CURING_UNIT"
+                  size="small"
+                  maxlength="50"
+                  readonly="readonly"
+                ></el-input>
+              </td>
+              <td class="bg-td">责任人：</td>
+              <td>
+                <el-input v-model.trim="infoForm.T0002_DUTY_PERSON" size="small" maxlength="20"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="bg-td">联系电话：</td>
+              <td>
+                <el-input v-model.trim="infoForm.T0002_TOUCH_TEL" size="small" maxlength="20"></el-input>
+              </td>
+              <td class="bg-td">经度：</td>
+              <td>
+                <el-input v-model.trim="infoForm.T0002_ASSET_PRECI" size="small"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="bg-td">纬度：</td>
+              <td>
+                <el-input v-model.trim="infoForm.T0002_ASSET_LATI" size="small"></el-input>
+              </td>
+              <td class="bg-td">备注：</td>
+              <td>
+                <el-input type="textarea" v-model="infoForm.T0002_ASSET_REAMRK" maxlength="500"></el-input>
+              </td>
+            </tr>
+            <tr>
+              <td class="bg-td">图片上传：</td>
+              <td colspan="3">
+                <el-upload
+                  class="avatar-uploader"
+                  :headers="header"
+                  accept="image/*"
+                  name="image"
+                  :on-change="imgChange"
+                  action
+                  :show-file-list="false"
+                  :auto-upload="false"
+                  style="display: inline"
+                >
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar"/>
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+                <ul class="ul-img">
+                  <li class="avatar-uploader" v-for="(item, index) in imageList" :key="index">
+                    <img :src="item.FILE_URL" class="el-upload avatar"/>
+                    <span class="actions-item">
                   <span>
                     <i class="el-icon-zoom-in" @click.stop="clickImgFun(item)"></i>
                   </span>
@@ -641,12 +717,11 @@
                     <i class="el-icon-delete" @click.stop="clickDeleteFun(item)"></i>
                   </span>
                 </span>
-              </li>
-            </ul>
-          </el-form-item>
-          <el-form-item label="备注:" style="width:86%" >
-            <el-input type="textarea" v-model="infoForm.T0002_ASSET_REAMRK" maxlength="500"></el-input>
-          </el-form-item>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </table>
         </el-form>
       </div>
       <div slot="footer" class="dialog-footer">
@@ -679,738 +754,777 @@
   </div>
 </template>
 <script>
-export default {
-  data() {
-    const validOrder = (rule, value, callback) => {
-      let reg = /^[1-9]\d*$/;
-      if (!reg.test(value)) {
-        callback(new Error("数量必须是正整数"));
-      } else {
-        callback();
-      }
-    };
-    // 电话验证
-    const validTel = (rule, value, callback) => {
-      let regPhone = /^1[3456789]\d{9}$/; // 手机
-      // let regTel = /^((0\d{2,3}-\d{7,8})|(1{2}]\d{9}))$/ // 固定
-      if (!regPhone.test(value)) {
-        callback(new Error("请输入正确的11位联系电话"));
-      } else {
-        callback();
-      }
-    };
-    // 起点终点桩号
-    const validPile = (rule, value, callback) => {
-      let reg = /[0-9a-zA-Z]|[+,-]/;
-      if (!reg.test(value)) {
-        callback(new Error("桩号只能输入英文，数字，+，-"));
-      } else {
-        callback();
-      }
-    };
-    // 经度正则表达式（-180 至 180）
-    const validPreci = (rule, value, callback) => {
-      let reg = /^-?((0|1?[0-8]?[0-9]?)(([.][0-9]{1,10})?)|180(([.][0]{1,10})?))$/;
-      if (!reg.test(value)) {
-        callback(new Error("请输入正确的经度(-180 至 180)"));
-      } else {
-        callback();
-      }
-    };
-    // 纬度正则表达式(-90 至 90)
-    const validLati = (rule, value, callback) => {
-      let reg = /^-?((0|[1-8]?[0-9]?)(([.][0-9]{1,10})?)|90(([.][0]{1,10})?))$/;
-      if (!reg.test(value)) {
-        callback(new Error("请输入正确的纬度(-90 至 90)"));
-      } else {
-        callback();
-      }
-    };
-    return {
-      labelPosition: "right",
-      huizong: {}, //汇总数据
-      flage: false, //桥梁隐藏
-      mapShow: false, // 地图是否显示
-      mapData: {
-        zoom: 12, // 当前地图缩放比列
-        position: [],
-        title: [],
-        contentRender: (h, instance) => {
-          return h(
-            "div",
-            {
-              style: {
-                height: "26px",
-                lineHeight: "26px",
-                background: "red",
-                whiteSpace: "nowrap",
-                color: "#fff",
-                letterSpacing: "2px",
-                padding: "0 10px",
+  export default {
+    data() {
+      const validOrder = (rule, value, callback) => {
+        let reg = /^[1-9]\d*$/;
+        if (!reg.test(value)) {
+          callback(new Error("数量必须是正整数"));
+        } else {
+          callback();
+        }
+      };
+      // 电话验证
+      const validTel = (rule, value, callback) => {
+        let regPhone = /^1[3456789]\d{9}$/; // 手机
+        // let regTel = /^((0\d{2,3}-\d{7,8})|(1{2}]\d{9}))$/ // 固定
+        if (!regPhone.test(value)) {
+          callback(new Error("请输入正确的11位联系电话"));
+        } else {
+          callback();
+        }
+      };
+      // 起点终点桩号
+      const validPile = (rule, value, callback) => {
+        let reg = /[0-9a-zA-Z]|[+,-]/;
+        if (!reg.test(value)) {
+          callback(new Error("桩号只能输入英文，数字，+，-"));
+        } else {
+          callback();
+        }
+      };
+      // 经度正则表达式（-180 至 180）
+      const validPreci = (rule, value, callback) => {
+        let reg = /^-?((0|1?[0-8]?[0-9]?)(([.][0-9]{1,10})?)|180(([.][0]{1,10})?))$/;
+        if (!reg.test(value)) {
+          callback(new Error("请输入正确的经度(-180 至 180)"));
+        } else {
+          callback();
+        }
+      };
+      // 纬度正则表达式(-90 至 90)
+      const validLati = (rule, value, callback) => {
+        let reg = /^-?((0|[1-8]?[0-9]?)(([.][0-9]{1,10})?)|90(([.][0]{1,10})?))$/;
+        if (!reg.test(value)) {
+          callback(new Error("请输入正确的纬度(-90 至 90)"));
+        } else {
+          callback();
+        }
+      };
+      return {
+        labelPosition: "right",
+        huizong: {}, //汇总数据
+        flage: false, //桥梁隐藏
+        mapShow: false, // 地图是否显示
+        mapData: {
+          zoom: 12, // 当前地图缩放比列
+          position: [],
+          title: [],
+          contentRender: (h, instance) => {
+            return h(
+              "div",
+              {
+                style: {
+                  height: "26px",
+                  lineHeight: "26px",
+                  background: "red",
+                  whiteSpace: "nowrap",
+                  color: "#fff",
+                  letterSpacing: "2px",
+                  padding: "0 10px",
+                },
               },
-            },
-            this.mapData.title
-          );
-        },
-      },
-      loclabel: {
-        content: "",
-        offset: [10, -20],
-      },
-      imageList: [],
-      imgShow: false,
-      imgShowUrl: "", // 预览图片
-      imageUrl: "",
-      header: {
-        TokenId: sessionStorage.getItem("TokenId"), // 上传文件token
-      },
-      dataParams: {
-        ID: "",
-        TABLE_NAME: "ASSET_DATA",
-      },
-      loading: true,
-      addShow: false,
-      editShow: false,
-      infoShow: false,
-      editForm: {},
-      addForm: {
-        T0002_ASSET_NAME: "",
-        T0001_ID: "426497497934856110",
-        T0002_LOAD_NAME: "",
-        T0002_START_PILE: "",
-        T0002_END_PILE: "",
-        T0002_ASSET_AMOUNT: "",
-        T0002_ASSET_DATE: "",
-        T0002_ASSET_COMPANY: "",
-        T0002_CURING_UNIT: "",
-        T0002_DUTY_PERSON: "",
-        T0002_TOUCH_TEL: "",
-        T0002_ASSET_PRECI: "",
-        T0002_ASSET_LATI: "",
-        T0002_ASSET_REAMRK: "",
-        M0018_ID: "",
-      },
-      rules: {
-        T0002_ASSET_NAME: [
-          { required: true, message: "请填写资产名称", trigger: "blur" },
-        ],
-        T0001_ID: [
-          { required: true, message: "请选择资产类别", trigger: "change" },
-        ],
-        T0002_LOAD_NAME: [
-          { required: true, message: "请选择所属路段", trigger: "change" },
-        ],
-        T0002_START_PILE: [
-          { required: true, message: "请填写起点桩号", trigger: "blur" },
-          { validator: validPile, trigger: "blur" },
-        ],
-        T0002_END_PILE: [
-          { required: true, message: "请填写起点桩号", trigger: "blur" },
-          { validator: validPile, trigger: "blur" },
-        ],
-        T0002_ASSET_AMOUNT: [
-          { required: true, message: "请填写数量", trigger: "blur" },
-          { validator: validOrder, trigger: "blur" },
-        ],
-        T0002_ASSET_DATE: [
-          {
-            required: true,
-            message: "请选择归属年份",
-            trigger: "change",
+              this.mapData.title
+            );
           },
-        ],
-        T0002_CURING_UNIT: [
-          { required: true, message: "请填写所属养管公司", trigger: "blur" },
-        ],
-        T0002_DUTY_PERSON: [
-          { required: true, message: "请填写责任人", trigger: "blur" },
-        ],
-        T0002_TOUCH_TEL: [
-          { required: true, message: "请填写联系电话", trigger: "blur" },
-          { validator: validTel, trigger: "blur" },
-        ],
-        T0002_ASSET_PRECI: [
-          { required: true, message: "请填写经度", trigger: "blur" },
-          { validator: validPreci, trigger: "blur" },
-        ],
-        T0002_ASSET_LATI: [
-          { required: true, message: "请填写纬度", trigger: "blur" },
-          { validator: validLati, trigger: "blur" },
-        ],
-      },
-      infoForm: {},
-      showCount: 10,
-      currentPage: 1,
-      total: 0,
-      searchMap: {
-        T0001_ID: "426497497934856110",
-        YEAR: "",
-        SEARCH_KEY: "",
-        T0002_START_PILE: "",
-        T0002_END_PILE: "",
-        M0018_ID: "",
-      },
-      tableData: [],
-      selectList: [],
-      assetTypeList: [], // 资产类别
-      listNameList: [], // 所属路段
-      pileList: [], // 起点 / 终点桩号
-      isSearch: false, // 是否搜索
-      searchVal: "", // 显示搜索内容
-      isAdd: true,
-      isDelete: true,
-      isEdit: true,
-      isChaxun: true,
-    };
-  },
-  methods: {
-    // 点击跳转到checkList
-    qlList(row) {
-      // row.T0002_ID = Number(row.T0002_ID)
-      // console.log(row)
-      this.$router.push({ path: "/checkList", query: { id: row.T0002_ID } });
-    },
-    // 请求所有的起点 / 终点桩号
-    assetDataFun() {
-      this.$api.post(
-        "/cycle/assetData/getPileList",
-        { M0018_ID: sessionStorage.getItem("id") },
-        null,
-        (r) => {
-          this.pileList = r.data;
-        }
-      );
-    },
-    // 点击地图
-    locationFun(data) {
-      console.log(data);
-      this.loclabel = {
-        content:
-          '<div style="background:red;color:#fff;padding:3px;letter-spacing:2px;">' +
-          data.T0002_ASSET_NAME +
-          "</div>",
-        offset: [-20, -22],
-      };
-      this.mapData.title = [];
-      this.mapShow = true;
-      this.mapData.position = [data.T0002_ASSET_PRECI, data.T0002_ASSET_LATI];
-      this.mapData.title.push(data.T0002_ASSET_NAME);
-    },
-    // 根据 资产类别 请求 起点 / 终点桩号
-    changeSelect(val) {
-      let _data = {
-        T0001_ID: val,
-        M0018_ID: sessionStorage.getItem("id"),
-      };
-      this.searchMap.T0002_START_PILE = "";
-      this.searchMap.T0002_END_PILE = "";
-      this.$api.post("/cycle/assetData/getPileList", _data, null, (r) => {
-        this.pileList = r.data;
-      });
-    },
-    // 搜索
-    searchFun() {
-      this.isSearch = true;
-      this.getAssetList();
-    },
-    // 重置
-    reset() {
-      this.isSearch = false;
-      this.pileList = [];
-      this.searchMap.T0001_ID = "";
-      this.searchMap.YEAR = "";
-      this.searchMap.SEARCH_KEY = "";
-      this.searchMap.T0002_START_PILE = "";
-      this.searchMap.T0002_END_PILE = "";
-      // this.showCount = 10;
-      // this.currentPage = 1;
-      // this.getAssetList();
-    },
-    // 分页
-    sizeChange(val) {
-      this.showCount = val;
-      this.getAssetList();
-    },
-    currentChange(val) {
-      this.currentPage = val;
-      this.getAssetList();
-    },
-    selectTable(selection) {
-      this.selectList = selection;
-    },
-    selectAll(selection) {
-      this.selectList = selection;
-    },
-    // 添加资产时验证资产是否存在
-    isHaveAssets() {
-      let _data = {
-        M0018_ID: sessionStorage.getItem("id"),
-        T0002_ASSET_NAME: this.addForm.T0002_ASSET_NAME,
-      };
-      console.log(_data);
-      this.$api.post("/cycle/assetData/isExist", _data, null, (r) => {
-        console.log(r);
-        if (r.data === true) {
-          this.$message.warning("资产名称已存在，请重新输入");
-          this.addForm.T0002_ASSET_NAME = "";
-        }
-      });
-    },
-    addFun() {
-      this.addShow = true;
-      this.imageUrl = "";
-      this.dataParams.ID = "";
-      this.imageList = [];
-      this.addForm.T0002_ASSET_COMPANY = JSON.parse(
-        sessionStorage.getItem("currentUser")
-      ).COMPANY_NAME;
-      // console.log(sessionStorage.getItem('currentUser'))
-      this.$nextTick(() => {
-        this.$refs["addFormRef"].resetFields();
-      });
-      this.$api.post(
-        `/cycle/utilData/getId`,
-        { M0018_ID: sessionStorage.getItem("id") },
-        null,
-        (r) => {
-          this.dataParams.ID = r.data;
-          this.addForm.T0002_ID = r.data;
-        }
-      );
-    },
-    // 新增保存
-    addSaveFun() {
-      this.addForm.M0018_ID = sessionStorage.getItem("id");
-      this.$refs["addFormRef"].validate((valid) => {
-        if (valid) {
-          this.$api.post(`/cycle/assetData/insert`, this.addForm, null, (r) => {
-            this.$message.success("新增成功");
-            this.getAssetList();
-            this.addShow = false;
-          });
-        }
-      });
-    },
-    handleInfo(data) {
-      this.infoShow = true;
-      this.imageList = [];
-      this.$api.post(
-        `/cycle/assetData/selectById?ID=${data.T0002_ID}`,
-        {},
-        null,
-        (r) => {
-          this.imageList = r.data.files;
-          this.infoForm = Object.assign({}, r.data);
-          this.infoForm.T0002_ASSET_COMPANY = JSON.parse(
-            sessionStorage.getItem("currentUser")
-          ).COMPANY_NAME;
-        }
-      );
-    },
-    handleEdit(data) {
-      this.editShow = true;
-      this.imageUrl = "";
-      this.imageList = [];
-      this.dataParams.ID = data.T0002_ID;
-      this.$api.post(
-        `/cycle/assetData/selectById?ID=${data.T0002_ID}`,
-        {},
-        null,
-        (r) => {
-          console.log(r);
-          this.imageList = r.data.files;
-          this.editForm = Object.assign({}, r.data);
-          this.editForm.T0002_ASSET_COMPANY = JSON.parse(
-            sessionStorage.getItem("currentUser")
-          ).COMPANY_NAME;
-        }
-      );
-    },
-    // 修改保存
-    editSaveFun() {
-      this.$refs["editFormRef"].validate((valid) => {
-        if (valid) {
-          this.$api.post(
-            `/cycle/assetData/update`,
-            this.editForm,
-            null,
-            (r) => {
-              this.$message.success("修改成功");
-              this.editShow = false;
-              this.getAssetList();
-            }
-          );
-        }
-      });
-    },
-    // 获取资产类别 list
-    getAssetTypeList() {
-      this.$api.post(
-        `/cycle/assetType/listAll`,
-        { M0018_ID: sessionStorage.getItem("id") },
-        null,
-        (r) => {
-          r.data.forEach((ele) => {
-            if (ele.T0001_PID !== "0") {
-              ele.T0001_ASSETTYPE_NAME = "--" + ele.T0001_ASSETTYPE_NAME;
-            }
-          });
-          this.assetTypeList = r.data;
-        }
-      );
-    },
-    gethuizong() {
-      console.log(111);
-      this.$api.post(
-        `/cycle/checkData/sumDataList`,
-        {
-          M0018_ID: sessionStorage.getItem("id"),
-          T0001_ID: "426497497934856110",
         },
-        null,
-        (r) => {
-          console.log(r);
-          this.huizong = r.data[0];
-        }
-      );
-    },
-    // 请求select 的所属路段
-    getListNameList() {
-      this.$api.post(
-        "/cycle/load/listLoadName",
-        { M0018_ID: sessionStorage.getItem("id") },
-        null,
-        (r) => {
-          this.listNameList = r.data;
-        }
-      );
-    },
-    // 资产信息list
-    getAssetList(type) {
-      this.searchMap.STATE = type;
-      this.searchMap.M0018_ID = sessionStorage.getItem("id");
-      // this.searchMap.M0018_ID = '426497497934856110'
-      // this.searchMap.M0018_ID = sessionStorage.getItem('426497497934856110')
-      let _data = {
-        currentPage: this.currentPage,
-        showCount: this.showCount,
-        searchMap: this.searchMap,
+        loclabel: {
+          content: "",
+          offset: [10, -20],
+        },
+        imageList: [],
+        imgShow: false,
+        imgShowUrl: "", // 预览图片
+        imageUrl: "",
+        header: {
+          TokenId: sessionStorage.getItem("TokenId"), // 上传文件token
+        },
+        dataParams: {
+          ID: "",
+          TABLE_NAME: "ASSET_DATA",
+        },
+        loading: true,
+        addShow: false,
+        editShow: false,
+        infoShow: false,
+        editForm: {},
+        addForm: {
+          T0002_ASSET_NAME: "",
+          T0001_ID: "426497497934856110",
+          T0002_LOAD_NAME: "",
+          T0002_START_PILE: "",
+          T0002_END_PILE: "",
+          T0002_ASSET_AMOUNT: "",
+          T0002_ASSET_DATE: "",
+          T0002_ASSET_COMPANY: "",
+          T0002_CURING_UNIT: "",
+          T0002_DUTY_PERSON: "",
+          T0002_TOUCH_TEL: "",
+          T0002_ASSET_PRECI: "",
+          T0002_ASSET_LATI: "",
+          T0002_ASSET_REAMRK: "",
+          M0018_ID: "",
+        },
+        rules: {
+          T0002_ASSET_NAME: [
+            {required: true, message: "请填写资产名称", trigger: "blur"},
+          ],
+          T0001_ID: [
+            {required: true, message: "请选择资产类别", trigger: "change"},
+          ],
+          T0002_LOAD_NAME: [
+            {required: true, message: "请选择所属路段", trigger: "change"},
+          ],
+          T0002_START_PILE: [
+            {required: true, message: "请填写起点桩号", trigger: "blur"},
+            {validator: validPile, trigger: "blur"},
+          ],
+          T0002_END_PILE: [
+            {required: true, message: "请填写起点桩号", trigger: "blur"},
+            {validator: validPile, trigger: "blur"},
+          ],
+          T0002_ASSET_AMOUNT: [
+            {required: true, message: "请填写数量", trigger: "blur"},
+            {validator: validOrder, trigger: "blur"},
+          ],
+          T0002_ASSET_DATE: [
+            {
+              required: true,
+              message: "请选择归属年份",
+              trigger: "change",
+            },
+          ],
+          T0002_CURING_UNIT: [
+            {required: true, message: "请填写所属养管公司", trigger: "blur"},
+          ],
+          T0002_DUTY_PERSON: [
+            {required: true, message: "请填写责任人", trigger: "blur"},
+          ],
+          T0002_TOUCH_TEL: [
+            {required: true, message: "请填写联系电话", trigger: "blur"},
+            {validator: validTel, trigger: "blur"},
+          ],
+          T0002_ASSET_PRECI: [
+            {required: true, message: "请填写经度", trigger: "blur"},
+            {validator: validPreci, trigger: "blur"},
+          ],
+          T0002_ASSET_LATI: [
+            {required: true, message: "请填写纬度", trigger: "blur"},
+            {validator: validLati, trigger: "blur"},
+          ],
+        },
+        infoForm: {},
+        showCount: 10,
+        currentPage: 1,
+        total: 0,
+        searchMap: {
+          T0001_ID: "426497497934856110",
+          YEAR: "",
+          SEARCH_KEY: "",
+          T0002_START_PILE: "",
+          T0002_END_PILE: "",
+          M0018_ID: "",
+        },
+        tableData: [],
+        selectList: [],
+        assetTypeList: [], // 资产类别
+        listNameList: [], // 所属路段
+        pileList: [], // 起点 / 终点桩号
+        isSearch: false, // 是否搜索
+        searchVal: "", // 显示搜索内容
+        isAdd: true,
+        isDelete: true,
+        isEdit: true,
+        isChaxun: true,
       };
-      this.$api.post(`/cycle/assetData/listPage`, _data, null, (r) => {
-        console.log(r);
-        this.loading = false;
-        for (let i = 0; i < r.data.returnParam.length; i++) {
-          if (r.data.returnParam[i].files.length > 0) {
-            r.data.returnParam[i].pic = r.data.returnParam[i].files[0].FILE_URL;
-            r.data.returnParam[i].srcList = [];
-            for (let k = 0; k < r.data.returnParam[i].files.length; k++) {
-              r.data.returnParam[i].srcList.push(
-                r.data.returnParam[i].files[k].FILE_URL
-              );
-            }
-          } else {
-            r.data.returnParam[i].pic = "";
-          }
-        }
-        this.tableData = r.data.returnParam;
-        this.total = r.data.totalResult;
-        this.searchVal = r.search_val;
-      });
     },
-    handleDelete(data) {
-      this.$confirm("确定要删除该条记录?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(() => {
+    methods: {
+      // 点击跳转到checkList
+      qlList(row) {
+        // row.T0002_ID = Number(row.T0002_ID)
+        // console.log(row)
+        this.$router.push({path: "/checkList", query: {id: row.T0002_ID}});
+      },
+      // 请求所有的起点 / 终点桩号
+      assetDataFun() {
         this.$api.post(
-          `/cycle/assetData/deleteById?ID=${data.T0002_ID}`,
+          "/cycle/assetData/getPileList",
+          {M0018_ID: sessionStorage.getItem("id")},
+          null,
+          (r) => {
+            this.pileList = r.data;
+          }
+        );
+      },
+      //设置指定行、列、具体单元格颜色
+      cellStyle({row, column, rowIndex, columnIndex}) {
+        if (columnIndex === 2) {
+          //指定坐标rowIndex ：行，columnIndex ：列
+          return "color:#1FB5AC"; //rgb(105,0,7)
+        } else {
+          return "";
+        }
+      },
+      // 点击地图
+      locationFun(data) {
+        console.log(data);
+        this.loclabel = {
+          content:
+            '<div style="background:red;color:#fff;padding:3px;letter-spacing:2px;">' +
+            data.T0002_ASSET_NAME +
+            "</div>",
+          offset: [-20, -22],
+        };
+        this.mapData.title = [];
+        this.mapShow = true;
+        this.mapData.position = [data.T0002_ASSET_PRECI, data.T0002_ASSET_LATI];
+        this.mapData.title.push(data.T0002_ASSET_NAME);
+      },
+      // 根据 资产类别 请求 起点 / 终点桩号
+      changeSelect(val) {
+        let _data = {
+          T0001_ID: val,
+          M0018_ID: sessionStorage.getItem("id"),
+        };
+        this.searchMap.T0002_START_PILE = "";
+        this.searchMap.T0002_END_PILE = "";
+        this.$api.post("/cycle/assetData/getPileList", _data, null, (r) => {
+          this.pileList = r.data;
+        });
+      },
+      // 搜索
+      searchFun() {
+        this.isSearch = true;
+        this.getAssetList();
+      },
+      // 重置
+      reset() {
+        this.isSearch = false;
+        this.pileList = [];
+        this.searchMap.T0001_ID = "";
+        this.searchMap.YEAR = "";
+        this.searchMap.SEARCH_KEY = "";
+        this.searchMap.T0002_START_PILE = "";
+        this.searchMap.T0002_END_PILE = "";
+        // this.showCount = 10;
+        // this.currentPage = 1;
+        // this.getAssetList();
+      },
+      // 分页
+      sizeChange(val) {
+        this.showCount = val;
+        this.getAssetList();
+      },
+      currentChange(val) {
+        this.currentPage = val;
+        this.getAssetList();
+      },
+      selectTable(selection) {
+        this.selectList = selection;
+      },
+      selectAll(selection) {
+        this.selectList = selection;
+      },
+      // 添加资产时验证资产是否存在
+      isHaveAssets() {
+        let _data = {
+          M0018_ID: sessionStorage.getItem("id"),
+          T0002_ASSET_NAME: this.addForm.T0002_ASSET_NAME,
+        };
+        console.log(_data);
+        this.$api.post("/cycle/assetData/isExist", _data, null, (r) => {
+          console.log(r);
+          if (r.data === true) {
+            this.$message.warning("资产名称已存在，请重新输入");
+            this.addForm.T0002_ASSET_NAME = "";
+          }
+        });
+      },
+      addFun() {
+        this.addShow = true;
+        this.imageUrl = "";
+        this.dataParams.ID = "";
+        this.imageList = [];
+        this.addForm.T0002_ASSET_COMPANY = JSON.parse(
+          sessionStorage.getItem("currentUser")
+        ).COMPANY_NAME;
+        // console.log(sessionStorage.getItem('currentUser'))
+        this.$nextTick(() => {
+          this.$refs["addFormRef"].resetFields();
+        });
+        this.$api.post(
+          `/cycle/utilData/getId`,
+          {M0018_ID: sessionStorage.getItem("id")},
+          null,
+          (r) => {
+            this.dataParams.ID = r.data;
+            this.addForm.T0002_ID = r.data;
+          }
+        );
+      },
+      // 新增保存
+      addSaveFun() {
+        this.addForm.M0018_ID = sessionStorage.getItem("id");
+        this.$refs["addFormRef"].validate((valid) => {
+          if (valid) {
+            this.$api.post(`/cycle/assetData/insert`, this.addForm, null, (r) => {
+              this.$message.success("新增成功");
+              this.getAssetList();
+              this.addShow = false;
+            });
+          }
+        });
+      },
+      handleInfo(data) {
+        this.infoShow = true;
+        this.imageList = [];
+        this.$api.post(
+          `/cycle/assetData/selectById?ID=${data.T0002_ID}`,
           {},
           null,
           (r) => {
-            if (this.tableData.length <= 1) {
-              this.currentPage = this.currentPage - 1;
-            }
-            this.$message.success("删除成功");
-            this.getAssetList();
+            this.imageList = r.data.files;
+            this.infoForm = Object.assign({}, r.data);
+            this.infoForm.T0002_ASSET_COMPANY = JSON.parse(
+              sessionStorage.getItem("currentUser")
+            ).COMPANY_NAME;
           }
         );
-      });
-    },
-    // 批量删除
-    delListFun() {
-      let _list = [];
-      if (this.selectList.length > 0) {
-        for (let i = 0; i < this.selectList.length; i++) {
-          _list.push(this.selectList[i].T0002_ID);
-        }
-        this.$confirm("确定要删除这些记录?", "提示", {
+      },
+      handleEdit(data) {
+        this.editShow = true;
+        this.imageUrl = "";
+        this.imageList = [];
+        this.dataParams.ID = data.T0002_ID;
+        this.$api.post(
+          `/cycle/assetData/selectById?ID=${data.T0002_ID}`,
+          {},
+          null,
+          (r) => {
+            console.log(r);
+            this.imageList = r.data.files;
+            this.editForm = Object.assign({}, r.data);
+            this.editForm.T0002_ASSET_COMPANY = JSON.parse(
+              sessionStorage.getItem("currentUser")
+            ).COMPANY_NAME;
+          }
+        );
+      },
+      // 修改保存
+      editSaveFun() {
+        this.$refs["editFormRef"].validate((valid) => {
+          if (valid) {
+            this.$api.post(
+              `/cycle/assetData/update`,
+              this.editForm,
+              null,
+              (r) => {
+                this.$message.success("修改成功");
+                this.editShow = false;
+                this.getAssetList();
+              }
+            );
+          }
+        });
+      },
+      // 获取资产类别 list
+      getAssetTypeList() {
+        this.$api.post(
+          `/cycle/assetType/listAll`,
+          {M0018_ID: sessionStorage.getItem("id")},
+          null,
+          (r) => {
+            r.data.forEach((ele) => {
+              if (ele.T0001_PID !== "0") {
+                ele.T0001_ASSETTYPE_NAME = "--" + ele.T0001_ASSETTYPE_NAME;
+              }
+            });
+            this.assetTypeList = r.data;
+          }
+        );
+      },
+      gethuizong() {
+        console.log(111);
+        this.$api.post(
+          `/cycle/checkData/sumDataList`,
+          {
+            M0018_ID: sessionStorage.getItem("id"),
+            T0001_ID: "426497497934856110",
+          },
+          null,
+          (r) => {
+            console.log(r);
+            this.huizong = r.data[0];
+          }
+        );
+      },
+      // 请求select 的所属路段
+      getListNameList() {
+        this.$api.post(
+          "/cycle/load/listLoadName",
+          {M0018_ID: sessionStorage.getItem("id")},
+          null,
+          (r) => {
+            this.listNameList = r.data;
+          }
+        );
+      },
+      // 资产信息list
+      getAssetList(type) {
+        this.searchMap.STATE = type;
+        this.searchMap.M0018_ID = sessionStorage.getItem("id");
+        // this.searchMap.M0018_ID = '426497497934856110'
+        // this.searchMap.M0018_ID = sessionStorage.getItem('426497497934856110')
+        let _data = {
+          currentPage: this.currentPage,
+          showCount: this.showCount,
+          searchMap: this.searchMap,
+        };
+        this.$api.post(`/cycle/assetData/listPage`, _data, null, (r) => {
+          console.log(r);
+          this.loading = false;
+          for (let i = 0; i < r.data.returnParam.length; i++) {
+            if (r.data.returnParam[i].files.length > 0) {
+              r.data.returnParam[i].pic = r.data.returnParam[i].files[0].FILE_URL;
+              r.data.returnParam[i].srcList = [];
+              for (let k = 0; k < r.data.returnParam[i].files.length; k++) {
+                r.data.returnParam[i].srcList.push(
+                  r.data.returnParam[i].files[k].FILE_URL
+                );
+              }
+            } else {
+              r.data.returnParam[i].pic = "";
+            }
+          }
+          this.tableData = r.data.returnParam;
+          this.total = r.data.totalResult;
+          this.searchVal = r.search_val;
+        });
+      },
+      handleDelete(data) {
+        this.$confirm("确定要删除该条记录?", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning",
         }).then(() => {
           this.$api.post(
-            `/cycle/assetData/deleteByIds?IDS=${_list}`,
+            `/cycle/assetData/deleteById?ID=${data.T0002_ID}`,
             {},
             null,
             (r) => {
-              if ((this.tableData.length = this.selectList.length)) {
+              if (this.tableData.length <= 1) {
                 this.currentPage = this.currentPage - 1;
               }
               this.$message.success("删除成功");
               this.getAssetList();
-              this.selectList = [];
             }
           );
         });
-      } else {
-        this.$message.warning("请选择要删除的数据！");
-      }
-    },
-    // 文件状态改变
-    imgChange(file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-      if (file.size > 5 * 1024 * 1024) {
-        this.$message.warning("上传图片不能超过 5MB");
-        return false;
-      }
-      this.uploadImgFun(file);
-    },
-    // 上传文件
-    uploadImgFun(file) {
-      let param = new FormData();
-      param.append("files", file.raw);
-      param.append("ID", this.dataParams.ID);
-      param.append("TABLE_NAME", this.dataParams.TABLE_NAME);
-      this.$api.post(`/cycle/fileInfo/uploadFile`, param, null, (r) => {
-        this.$message.success("上传图片成功");
-        this.imageUrl = "";
-        this.getAssetList();
-        this.imageList.push(Object.assign({}, r.data[0]));
-      });
-    },
-    clickImgFun(data) {
-      this.imgShowUrl = data.FILE_URL;
-      this.imgShow = true;
-    },
-    clickDeleteFun(data) {
-      this.$confirm("确定要删除该图片?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(() => {
+      },
+      // 批量删除
+      delListFun() {
+        let _list = [];
+        if (this.selectList.length > 0) {
+          for (let i = 0; i < this.selectList.length; i++) {
+            _list.push(this.selectList[i].T0002_ID);
+          }
+          this.$confirm("确定要删除这些记录?", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          }).then(() => {
+            this.$api.post(
+              `/cycle/assetData/deleteByIds?IDS=${_list}`,
+              {},
+              null,
+              (r) => {
+                if ((this.tableData.length = this.selectList.length)) {
+                  this.currentPage = this.currentPage - 1;
+                }
+                this.$message.success("删除成功");
+                this.getAssetList();
+                this.selectList = [];
+              }
+            );
+          });
+        } else {
+          this.$message.warning("请选择要删除的数据！");
+        }
+      },
+      // 文件状态改变
+      imgChange(file) {
+        this.imageUrl = URL.createObjectURL(file.raw);
+        if (file.size > 5 * 1024 * 1024) {
+          this.$message.warning("上传图片不能超过 5MB");
+          return false;
+        }
+        this.uploadImgFun(file);
+      },
+      // 上传文件
+      uploadImgFun(file) {
+        let param = new FormData();
+        param.append("files", file.raw);
+        param.append("ID", this.dataParams.ID);
+        param.append("TABLE_NAME", this.dataParams.TABLE_NAME);
+        this.$api.post(`/cycle/fileInfo/uploadFile`, param, null, (r) => {
+          this.$message.success("上传图片成功");
+          this.imageUrl = "";
+          this.getAssetList();
+          this.imageList.push(Object.assign({}, r.data[0]));
+        });
+      },
+      clickImgFun(data) {
+        this.imgShowUrl = data.FILE_URL;
+        this.imgShow = true;
+      },
+      clickDeleteFun(data) {
+        this.$confirm("确定要删除该图片?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }).then(() => {
+          this.$api.post(
+            `/cycle/fileInfo/deleteById?ID=${data.M0013_ID}`,
+            {},
+            null,
+            (r) => {
+              this.$message.success("删除成功");
+              this.getAssetList();
+              this.imageList = this.imageList.filter((item) => {
+                return item.M0013_ID !== data.M0013_ID;
+              });
+            }
+          );
+        });
+      },
+      // 获取增删改查按钮状态
+      getState() {
+        let _data = {
+          M0018_ID: sessionStorage.getItem("id"),
+          M0004_ID: this.$route.query.ID,
+        };
+        console.log(_data);
         this.$api.post(
-          `/cycle/fileInfo/deleteById?ID=${data.M0013_ID}`,
-          {},
+          "/cycle/roleGroupManagement/getAuthByMenuId?M0004_ID=" +
+          this.$route.query.ID,
+          {M0018_ID: sessionStorage.getItem("id")},
           null,
-          (r) => {
-            this.$message.success("删除成功");
-            this.getAssetList();
-            this.imageList = this.imageList.filter((item) => {
-              return item.M0013_ID !== data.M0013_ID;
+          (res) => {
+            console.log(res);
+            res.data.forEach((v) => {
+              if (
+                v.M0004_NAME === "查询" &&
+                (v.M0005_STATE === "1" || v.M0005_STATE === 1)
+              ) {
+                this.isChaxun = false;
+              } else if (
+                v.M0004_NAME === "添加" &&
+                (v.M0005_STATE === "1" || v.M0005_STATE === 1)
+              ) {
+                this.isAdd = false;
+              } else if (
+                v.M0004_NAME === "修改" &&
+                (v.M0005_STATE === "1" || v.M0005_STATE === 1)
+              ) {
+                this.isEdit = false;
+              } else if (
+                v.M0004_NAME === "删除" &&
+                (v.M0005_STATE === "1" || v.M0005_STATE === 1)
+              ) {
+                this.isDelete = false;
+              }
             });
           }
         );
-      });
+      },
     },
-    // 获取增删改查按钮状态
-    getState() {
-      let _data = {
-        M0018_ID: sessionStorage.getItem("id"),
-        M0004_ID: this.$route.query.ID,
-      };
-      console.log(_data);
-      this.$api.post(
-        "/cycle/roleGroupManagement/getAuthByMenuId?M0004_ID=" +
-          this.$route.query.ID,
-        { M0018_ID: sessionStorage.getItem("id") },
-        null,
-        (res) => {
-          console.log(res);
-          res.data.forEach((v) => {
-            if (
-              v.M0004_NAME === "查询" &&
-              (v.M0005_STATE === "1" || v.M0005_STATE === 1)
-            ) {
-              this.isChaxun = false;
-            } else if (
-              v.M0004_NAME === "添加" &&
-              (v.M0005_STATE === "1" || v.M0005_STATE === 1)
-            ) {
-              this.isAdd = false;
-            } else if (
-              v.M0004_NAME === "修改" &&
-              (v.M0005_STATE === "1" || v.M0005_STATE === 1)
-            ) {
-              this.isEdit = false;
-            } else if (
-              v.M0004_NAME === "删除" &&
-              (v.M0005_STATE === "1" || v.M0005_STATE === 1)
-            ) {
-              this.isDelete = false;
-            }
-          });
-        }
-      );
+    created() {
+      this.getAssetTypeList();
+      this.getAssetList();
+      this.getListNameList();
+      this.assetDataFun();
+      this.getState();
+      this.gethuizong();
     },
-  },
-  created() {
-    this.getAssetTypeList();
-    this.getAssetList();
-    this.getListNameList();
-    this.assetDataFun();
-    this.getState();
-    this.gethuizong();
-  },
-};
+  };
 </script>
 <style lang="scss">
-.assets-wrap {
-  .el-button--mini {
-    padding: 4px 5px;
-  }
-  .add-table tr td {
-    padding: 5px 10px !important;
-  }
-  .el-table tr {
-    cursor: pointer;
-  }
-  .el-dialog__header {
-    background: #f5f5f5;
-  }
-  .title-p {
-    margin-bottom: 10px;
-    button {
-      float: right;
+  .assets-wrap {
+    .el-button--mini {
+      padding: 4px 5px;
     }
-  }
-  .table-title {
-    margin-top: 25px;
-    font-size: 13px;
-    color: #666666;
-    .title-info {
-      width: 160px;
-      text-align: center;
+
+    .add-table tr td {
+      padding: 5px 10px !important;
     }
-  }
-  .content {
-    background: #fff;
-    padding: 20px 20px;
-    .el-form-item {
-      margin-bottom: 0;
-    }
-    .table-div {
-      .el-button--mini {
-        padding: 4px 5px;
-      }
-    }
-    .div-btn {
-      margin: 10px 0;
-    }
-  }
-  .serach-span {
-    margin-left: 20px;
-    span + span {
-      margin-right: 10px;
-    }
-  }
-  .table-page {
-    text-align: center;
-    margin-top: 10px;
-  }
-  // .add-table {
-  //   width: 100%;
-  //   border-collapse: collapse;
-  //   border: 1px solid #dcdfe6;
-  //   tr {
-  //     border: 1px solid #dcdfe6;
-  //     td {
-  //       border: 1px solid #dcdfe6;
-  //       padding: 15px 10px;
-  //     }
-  //   }
-  //   .bg-td {
-  //     background: #f0f0f0;
-  //     text-align: center;
-  //   }
-  // }
-  // .el-table {
-  //   td,
-  //   th {
-  //     text-align: center;
-  //   }
-  // }
-  .dialog-div {
-    width: 1000px;
-    margin-top: 50px !important;
-    .el-form-item {
-      margin-bottom: 0;
-      width: 40%;
-      float: left;
-      margin-left: 5%;
-    }
-  }
-  .ul-img {
-    display: inline;
-    list-style: none;
-    margin: 0;
-  }
-  .avatar-uploader {
-    display: inline-block;
-    margin-left: 10px;
-    position: relative;
-  }
-  .actions-item {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    cursor: default;
-    text-align: center;
-    color: #fff;
-    opacity: 0;
-    font-size: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
-    transition: opacity 0.3s;
-    line-height: 110px;
-    border-radius: 6px;
-    span {
-      display: inline-block;
+
+    .el-table tr {
       cursor: pointer;
     }
-    span + span {
-      margin-left: 15px;
+
+    .el-dialog__header {
+      background: #f5f5f5;
     }
-    i {
-      font-size: 24px;
+
+    .title-p {
+      margin-bottom: 10px;
+
+      button {
+        float: right;
+      }
+    }
+
+    .table-title {
+      margin-top: 25px;
+      font-size: 13px;
+      color: #666666;
+
+      .title-info {
+        width: 160px;
+        text-align: center;
+      }
+    }
+
+    .content {
+      background: #fff;
+      padding: 20px 20px;
+
+      .el-form-item {
+        margin-bottom: 0;
+      }
+
+      .table-div {
+        .el-button--mini {
+          padding: 4px 5px;
+        }
+      }
+
+      .div-btn {
+        margin: 10px 0;
+      }
+    }
+
+    .serach-span {
+      margin-left: 20px;
+
+      span + span {
+        margin-right: 10px;
+      }
+    }
+
+    .table-page {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .add-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid #dcdfe6;
+
+      tr {
+        border: 1px solid #dcdfe6;
+
+        td {
+          border: 1px solid #dcdfe6;
+          padding: 15px 15px !important;
+
+          .el-form-item {
+            margin-bottom: 0 !important;
+          }
+        }
+      }
+
+      .bg-td {
+        background: #f0f0f0;
+        text-align: center;
+        width: 14% !important;
+      }
+    }
+
+    .dialog-div {
+      width: 1000px;
+      margin-top: 50px !important;
+
+      .el-form-item {
+        margin-bottom: 0;
+        width: 40%;
+        float: left;
+        margin-left: 5%;
+      }
+    }
+
+    .ul-img {
+      display: inline;
+      list-style: none;
+      margin: 0;
+    }
+
+    .avatar-uploader {
+      display: inline-block;
+      margin-left: 10px;
+      position: relative;
+    }
+
+    .actions-item {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      cursor: default;
+      text-align: center;
+      color: #fff;
+      opacity: 0;
+      font-size: 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      transition: opacity 0.3s;
+      line-height: 110px;
+      border-radius: 6px;
+
+      span {
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      span + span {
+        margin-left: 15px;
+      }
+
+      i {
+        font-size: 24px;
+      }
+    }
+
+    .actions-item:hover {
+      opacity: 1;
+    }
+
+    .avatar-uploader .el-upload {
+      border: 1px dashed #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .avatar-uploader .el-upload:hover {
+      border-color: #409eff;
+    }
+
+    .avatar-uploader-icon {
+      font-size: 28px;
+      color: #8c939d;
+      width: 120px;
+      height: 120px;
+      line-height: 120px;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      display: block;
     }
   }
-  .actions-item:hover {
-    opacity: 1;
-  }
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409eff;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 120px;
-    height: 120px;
-    line-height: 120px;
-    text-align: center;
-  }
-  .avatar {
-    width: 120px;
-    height: 120px;
-    display: block;
-  }
-}
 </style>

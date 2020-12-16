@@ -20,6 +20,7 @@
           :data="tableData"
           border
           style="width: 100%"
+          :cell-style="cellStyle"
           highlight-current-row
           @select="selectTable"
           @select-all="selectAll"
@@ -175,6 +176,15 @@ export default {
         return;
       }
       return moment(newdate).format("YYYY-MM-DD HH:mm:ss");
+    },
+    //设置指定行、列、具体单元格颜色
+    cellStyle({ row, column, rowIndex, columnIndex }) {
+      if (columnIndex === 3) {
+        //指定坐标rowIndex ：行，columnIndex ：列
+        return "color:#1FB5AC"; //rgb(105,0,7)
+      } else {
+        return "";
+      }
     },
     // 分页
     sizeChange(val) {
@@ -340,12 +350,15 @@ export default {
 </script>
 
 
-<style scoped>
+<style>
 .dialog-div .el-form-item {
   width: 40%;
   float: left;
   margin-right: 3%;
   margin-left: 3%;
   margin-top: 4%;
+}
+.el-table .cell {
+  padding-right: 0px !important;
 }
 </style>
